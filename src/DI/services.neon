@@ -1,0 +1,4 @@
+services:
+	- Facilis\Users\Manager\UserAggregateManager
+	- Facilis\Users\OAuth2\LoginService
+	- Facilis\Users\OAuth2\SessionStateStorage
