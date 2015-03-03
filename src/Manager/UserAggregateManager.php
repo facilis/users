@@ -13,6 +13,8 @@ use Nette\Object;
 class UserAggregateManager extends Object implements IOAuthAccountManager
 {
 
+    public $onPersistOAuthAccount;
+
     /**
      * @var EntityManager
      */
@@ -61,6 +63,8 @@ class UserAggregateManager extends Object implements IOAuthAccountManager
 
         $user->addOAuthAccount($service, $uid, $token->accessToken, $token->refreshToken,
             new \DateTime('@' . $token->expires));
+
+        $this->onPersistOAuthAccount($user, $userData);
 
         $this->entityManager->persist($user);
 

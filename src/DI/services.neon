@@ -2,3 +2,4 @@ services:
 	- Facilis\Users\Manager\UserAggregateManager
 	- Facilis\Users\OAuth2\LoginService
 	- Facilis\Users\OAuth2\SessionStateStorage
+	- Facilis\Users\Presenter\OAuthLoginPresenter(%facilis.users.oauth.providers%, %facilis.users.oauth.redirect%)

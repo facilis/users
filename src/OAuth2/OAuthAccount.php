@@ -41,21 +41,21 @@ class OAuthAccount extends Nette\Object
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $accessToken;
 
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $refreshToken;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $tokenExpiration;
 

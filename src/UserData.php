@@ -9,7 +9,7 @@ use Nette\Object;
  * Class UserData
  * @package Facilis\Users
  *
- * @ORM\Entity
+ * @ORM\MappedSuperclass
  */
 class UserData extends Object implements IUserData
 {

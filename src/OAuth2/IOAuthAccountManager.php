@@ -7,5 +7,6 @@ use League\OAuth2\Client\Token\AccessToken;
 
 interface IOAuthAccountManager
 {
+
     function persistOAuthAccount($service, AccessToken $token, User $userData);
 }

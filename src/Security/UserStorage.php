@@ -2,6 +2,7 @@
 
 namespace Facilis\Users\Security;
 
+use Doctrine\ORM\EntityManager;
 use Facilis\Users\UserAggregate;
 use Nette\Http\Session;
 use Nette\Security\Identity;
@@ -28,7 +29,7 @@ class UserStorage extends \Nette\Http\UserStorage
     public function setIdentity(IIdentity $identity = null)
     {
         if ($identity instanceof UserAggregate) {
-            $identity = new Identity(get_class($identity), [], ['id' => $identity->getId]);
+            $identity = new Identity(get_class($identity), [], ['id' => $identity->getId()]);
         }
         return parent::setIdentity($identity);
     }
