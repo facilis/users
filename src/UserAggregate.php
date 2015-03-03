@@ -12,7 +12,7 @@ use Nette;
  *
  * @ORM\Entity
  */
-class UserAggregate extends Nette\Object
+class UserAggregate extends Nette\Object implements Nette\Security\IIdentity
 {
 
     /**
@@ -181,6 +181,17 @@ class UserAggregate extends Nette\Object
                 return $account;
             }
         }
+    }
+
+
+
+    /**
+     * Returns a list of roles that the user is a member of.
+     * @return array
+     */
+    public function getRoles()
+    {
+        return [$this];
     }
 
 

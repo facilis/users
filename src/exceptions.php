@@ -6,3 +6,8 @@ class AuthenticationException extends \Exception
 {
 
 }
+
+class InvalidStateException extends \Exception
+{
+
+}

@@ -22,7 +22,6 @@ class UserAggregateManager extends Object implements IOAuthAccountManager
 
     public function __construct(EntityManager $entityManager)
     {
-
         $this->entityManager = $entityManager;
     }
 
