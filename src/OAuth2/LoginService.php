@@ -49,7 +49,7 @@ class LoginService extends Object
                 // We got an access token, let's now get the user's details
                 $userDetails = $provider->getUserDetails($token);
 
-                $manager->persistOAuthAccount(get_class($provider), $token, $userDetails);
+                return $manager->persistOAuthAccount(get_class($provider), $token, $userDetails);
 
             } catch (IDPException $e) {
                 throw new AuthenticationException;
