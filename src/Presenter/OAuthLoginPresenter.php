@@ -2,7 +2,6 @@
 
 namespace Facilis\Users\Presenter;
 
-use Doctrine\ORM\EntityManager;
 use Facilis\Users\OAuth2\LoginService;
 use Facilis\Users\UserAggregate;
 use League\OAuth2\Client\Provider\Facebook;
@@ -11,6 +10,7 @@ use Nette\Application\UI\Presenter;
 
 class OAuthLoginPresenter extends Presenter
 {
+
     /**
      * @var array
      */
@@ -22,28 +22,22 @@ class OAuthLoginPresenter extends Presenter
     private $redirect;
 
     /**
-     * @var EntityManager
-     */
-    private $entityManager;
-
-    /**
      * @var LoginService
      */
     private $loginService;
 
 
 
-    public function __construct($config, $redirect, EntityManager $entityManager, LoginService $loginService)
+    public function __construct($config, $redirect, LoginService $loginService)
     {
         $this->config = $config;
         $this->redirect = $redirect;
-        $this->entityManager = $entityManager;
         $this->loginService = $loginService;
     }
 
 
 
-    public function actionLogin($provider, $code, $state)
+    public function actionLogin($provider, $code, $state, $request)
     {
         try {
             if ($provider == 'facebook') {
@@ -57,10 +51,15 @@ class OAuthLoginPresenter extends Presenter
             $user = $this->loginService->login($provider, $code, $state);
 
             if ($user instanceof UserAggregate) {
-                $this->entityManager->flush();
                 $this->getUser()->login($user);
-                $this->redirect($this->redirect);
+                $lastRequest = $this->getLastRequest();
+                if ($lastRequest) {
+                    $this->restoreRequest($lastRequest);
+                } else {
+                    $this->redirect($this->redirect);
+                }
             } elseif (is_string($user)) {
+                $this->setLastRequest($request);
                 $this->redirectUrl($user);
             }
 
@@ -86,5 +85,18 @@ class OAuthLoginPresenter extends Presenter
         ]);
     }
 
+
+
+    private function getLastRequest()
+    {
+        return $this->getSession('facilis.oauth.request')->request;
+    }
+
+
+
+    private function setLastRequest($request)
+    {
+        $this->getSession('facilis.oauth.request')->request = $request;
+    }
 
 }
