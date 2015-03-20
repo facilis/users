@@ -15,43 +15,18 @@ class UserData extends Object implements IUserData
 {
 
     /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
      * @var UserAggregate
      *
+     * @ORM\Id
      * @ORM\OneToOne(targetEntity="Facilis\Users\UserAggregate", inversedBy="data")
      */
     private $user;
 
 
 
-    public function __construct($id = null)
-    {
-        $this->id = $id;
-    }
-
-
-
     public function setUser(UserAggregate $user)
     {
         $this->user = $user;
-    }
-
-
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
 
