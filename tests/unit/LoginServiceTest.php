@@ -41,8 +41,8 @@ class LoginServiceTest extends \Codeception\TestCase\Test
         $manager = \Mockery::mock('Facilis\Users\OAuth2\IOauthAccountManager');
         $manager->shouldReceive('persistOAuthAccount')->withArgs([get_class($provider), $accessToken, $userDetail]);
 
-        $service = new \Facilis\Users\OAuth2\LoginService($stateStorage);
-        $service->login($provider, $code, $state, $manager);
+        $service = new \Facilis\Users\OAuth2\LoginService($stateStorage, $manager);
+        $service->login($provider, $code, $state);
     }
 
 
@@ -61,10 +61,8 @@ class LoginServiceTest extends \Codeception\TestCase\Test
 
         $manager = \Mockery::mock('Facilis\Users\OAuth2\IOauthAccountManager');
 
-        $service = new \Facilis\Users\OAuth2\LoginService($stateStorage);
-        $service->login($provider, $code, $state, $manager);
-
-        $this->assertEquals(true, in_array('Location: url', xdebug_get_headers()));
+        $service = new \Facilis\Users\OAuth2\LoginService($stateStorage, $manager);
+        $this->assertEquals('url', $service->login($provider, $code, $state));
     }
 
 
@@ -82,9 +80,9 @@ class LoginServiceTest extends \Codeception\TestCase\Test
 
         $manager = \Mockery::mock('Facilis\Users\OAuth2\IOauthAccountManager');
 
-        $service = new \Facilis\Users\OAuth2\LoginService($stateStorage);
+        $service = new \Facilis\Users\OAuth2\LoginService($stateStorage, $manager);
         try {
-            $service->login($provider, $code, $state, $manager);
+            $service->login($provider, $code, $state);
         } catch (\Facilis\Users\OAuth2\InvalidStateException $e) {
             $this->throwException($e);
         }
@@ -109,9 +107,9 @@ class LoginServiceTest extends \Codeception\TestCase\Test
 
         $manager = \Mockery::mock('Facilis\Users\OAuth2\IOauthAccountManager');
 
-        $service = new \Facilis\Users\OAuth2\LoginService($stateStorage);
+        $service = new \Facilis\Users\OAuth2\LoginService($stateStorage, $manager);
         try {
-            $service->login($provider, $code, $state, $manager);
+            $service->login($provider, $code, $state);
         } catch (\Facilis\Users\OAuth2\AuthenticationException $e) {
             $this->throwException($e);
         }

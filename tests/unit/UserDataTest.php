@@ -26,11 +26,10 @@ class UserDataTest extends \Codeception\TestCase\Test
     public function testClass()
     {
         $user = \Mockery::mock('Facilis\Users\UserAggregate');
-        $data = new \Facilis\Users\UserData(1);
+        $data = new \Facilis\Users\UserData();
         $data->setUser($user);
 
         $this->assertEquals($user, $data->getUser());
-        $this->assertEquals(1, $data->getId());
     }
 
 }
