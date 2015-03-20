@@ -64,9 +64,22 @@ class UserAggregateManager extends Object implements IOAuthAccountManager
         $user->addOAuthAccount($service, $uid, $token->accessToken, $token->refreshToken,
             new \DateTime('@' . $token->expires));
 
+        // Start the "circus"
+        $this->entityManager->beginTransaction();
+
+        // Assign identity
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        // Callback must have identity assigned
         $this->onPersistOAuthAccount($user, $userData);
 
+        // Update again
         $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        // Commit the whole "circus"
+        $this->entityManager->commit();
 
         return $user;
     }
