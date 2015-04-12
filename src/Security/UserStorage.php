@@ -39,8 +39,8 @@ class UserStorage extends \Nette\Http\UserStorage
     public function getIdentity()
     {
         $identity = parent::getIdentity();
-        if ($identity !== null && $identity->getId() == UserAggregate::class && $identity instanceof Identity) {
-            $identity = $this->entityManager->getRepository(UserAggregate::class)->find($identity->getData()['id']);
+        if ($identity !== null && $identity->getId() == 'Facilis\Users\UserAggregate' && $identity instanceof Identity) {
+            $identity = $this->entityManager->getRepository('Facilis\Users\UserAggregate')->find($identity->getData()['id']);
         }
         return $identity;
     }
