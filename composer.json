@@ -3,12 +3,11 @@
 	"description": "User aggregate with OAuth supports.",
 	"require": {
 		"league/oauth2-client": "~0.9",
-		"doctrine/orm": "~2.5@dev",
-		"doctrine/common": "~2.5@dev",
-		"nette/utils": "~2.3",
-		"nette/security": "~2.3",
-		"nette/di": "~2.3",
-		"nette/http": "~2.3"
+		"kdyby/doctrine": "~3.0.0@dev",
+		"nette/utils": "~2.3.0",
+		"nette/security": "~2.3.0",
+		"nette/di": "~2.3.0",
+		"nette/http": "~2.3.0"
 	},
 	"require-dev": {
 		"codeception/codeception": "~2.0",
